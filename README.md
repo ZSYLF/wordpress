@@ -108,4 +108,68 @@ service httpd restart
 
 # Step 5: Install WordPress on CentOS server
 
-输入你的服务器的IP地址，在互联网中输入你的基本信息
+输入你的服务器的IP地址，由于php版本太低，此时网页会报错，需要将php版本升级，在更新PHP之前，先查看下当前PHP版本，避免重复的更新
+
+php -v 
+
+检查当前PHP的安装包
+
+ yum list installed | grep php 
+ 
+移除当前PHP的安装包，否则容易起冲突
+
+yum remove php* 
+
+由于默认的YUM源无法升级PHP，所以需要添加第三方的YUM源，此处用到webtatic。
+
+rpm -Uvh http://mirror.webtatic.com/yum/el6/latest.rpm
+
+查看YUM源上能用PHP安装包
+
+yum list php* 
+ 
+安装PHP5.6及需要的扩展
+
+yum install php56w.x86_64 php56w-cli.x86_64 php56w-common.x86_64 php56w-gd.x86_64 php56w-ldap.x86_64 php56w-mbstring.x86_64 php56w-mysql.x86_64 php56w-pdo.x86_64 php56w-odbc.x86_64 php56w-xml.x86_64 php56w-xmlrpc.x86_64 php56w-soap.x86_64
+
+全部安装成功后确认一下：
+
+yum list installed | grep php
+
+结果如下
+
+php56w.x86_64            5.6.27-1.w6    @webtatic   
+
+php56w-cli.x86_64        5.6.27-1.w6    @webtatic 
+
+php56w-common.x86_64     5.6.27-1.w6    @webtatic 
+
+php56w-gd.x86_64         5.6.27-1.w6    @webtatic 
+
+php56w-ldap.x86_64       5.6.27-1.w6    @webtatic 
+
+php56w-mbstring.x86_64   5.6.27-1.w6    @webtatic
+
+php56w-mysql.x86_64      5.6.27-1.w6    @webtatic 
+
+php56w-odbc.x86_64       5.6.27-1.w6    @webtatic 
+
+php56w-pdo.x86_64        5.6.27-1.w6    @webtatic 
+
+php56w-soap.x86_64       5.6.27-1.w6    @webtatic 
+
+php56w-xml.x86_64        5.6.27-1.w6    @webtatic 
+
+php56w-xmlrpc.x86_64     5.6.27-1.w6    @webtatic
+
+再次查看PHP版本，以确认安装是否成功
+
+php -v 
+
+显示5.6，则升级完毕
+
+此时重启apache
+
+service httpd restart
+
+最后在浏览器中输入自己的IP地址进入wordpress
