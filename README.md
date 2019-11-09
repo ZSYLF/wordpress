@@ -173,3 +173,6 @@ php -v
 service httpd restart
 
 最后在浏览器中输入自己的IP地址进入wordpress
+
+![image](https://github.com/ZSYLF/wordpress/blob/master/images/wordpress-instalacija.jpg)
+
